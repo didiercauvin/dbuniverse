@@ -1,0 +1,11 @@
+.category {
+  list-style-type: none;
+}
+
+.category li {
+  cursor: pointer;
+}
+
+.category .badge {
+  height: 5em;
+}

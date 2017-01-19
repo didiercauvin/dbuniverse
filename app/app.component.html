@@ -1,0 +1,21 @@
+<div class="container">
+    <div>{{pageTitle}}</div>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="sidebar-nav">
+          <div class="navbar navbar-default" role="navigation">
+            <div class="navbar-collapse collapse sidebar-navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li><a [routerLink]='["/"]' routerLinkActive="active">Home</a></li>
+                <li><a [routerLink]='["category", "db"]' routerLinkActive="active">Dragon Ball</a></li>
+                <li><a [routerLink]='["category", "dbz"]' routerLinkActive="active">Dragon Ball Z</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-9">
+          <router-outlet></router-outlet>
+      </div>
+    </div>
+</div>
