@@ -1,0 +1,71 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\CauvinDi\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Users\CauvinDi\AppData\Roaming\npm;C:\Program Files\nodejs\;C:\app\client\BourletMa\product\12.1.0\client_1;C:\app\client\BourletMa\product\12.1.0\client_1\bin;C:\Oracle\odac_x64R3\install;C:\Oracle\odac_x64R3\install\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\ORACLE\odac112_x86;C:\ORACLE\odac112_x86\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\1.0\;C:\Program Files\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies\;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files\erl8.0\bin;C:\Program Files (x86)\Elixir\bin;C:\Users\CauvinDi\.mix\escripts;C:\ProgramData\chocolatey\bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Elm Platform\0.17.1\bin;;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\CauvinDi\AppData\Roaming\npm
+
+Yarn version: 
+  0.18.1
+
+Node version: 
+  6.9.1
+
+Platform: 
+  win32 x64
+
+npm manifest: 
+  {
+    "name": "workspace",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+      "start": "webpack-dev-server  --host $IP --port $PORT --progress --hot --inline",
+      "server": "http-server",
+      "tsc": "tsc",
+      "build": "rimraf dist && webpack --progress --profile --bail"
+    },
+    "devDependencies": {
+      "@types/node": "^7.0.0",
+      "angular2-template-loader": "^0.6.0",
+      "awesome-typescript-loader": "^3.0.0-beta.18",
+      "extract-text-webpack-plugin": "^1.0.1",
+      "html-loader": "^0.4.4",
+      "html-webpack-plugin": "^2.26.0",
+      "http-server": "^0.9.0",
+      "path": "^0.12.7",
+      "raw-loader": "^0.5.1",
+      "reflect-metadata": "^0.1.9",
+      "rimraf": "^2.5.4",
+      "ts-loader": "^1.3.3",
+      "tslint-loader": "^3.3.0",
+      "typescript": "^2.1.5",
+      "webpack": "^1.14.0",
+      "webpack-dev-server": "^1.16.2",
+      "webpack-merge": "^2.4.0"
+    },
+    "dependencies": {
+      "@angular/common": "^2.4.3",
+      "@angular/compiler": "^2.4.3",
+      "@angular/core": "^2.4.3",
+      "@angular/forms": "^2.4.3",
+      "@angular/http": "^2.4.3",
+      "@angular/platform-browser": "^2.4.3",
+      "@angular/platform-browser-dynamic": "^2.4.3",
+      "@angular/router": "^3.4.3",
+      "bootstrap": "^3.3.7",
+      "core-js": "^2.4.1",
+      "rxjs": "^5.0.3",
+      "zone.js": "0.7.4"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: https://registry.yarnpkg.com/form-data: unexpected end of file
+      at Zlib._handle.onerror (zlib.js:370:17)
