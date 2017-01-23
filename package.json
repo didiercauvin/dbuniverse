@@ -7,7 +7,8 @@
     "start": "webpack-dev-server --port 8080 --progress --hot --inline",
     "server": "http-server",
     "tsc": "tsc",
-    "build": "rimraf dist && webpack --progress --profile --bail"
+    "build": "rimraf dist && webpack --progress --profile --bail",
+    "test": "webpack"
   },
   "devDependencies": {
     "@types/node": "^7.0.0",
@@ -21,6 +22,8 @@
     "raw-loader": "^0.5.1",
     "reflect-metadata": "^0.1.9",
     "rimraf": "^2.5.4",
+    "tap-webpack-plugin": "^1.1.0",
+    "tape": "^4.6.3",
     "ts-loader": "^1.3.3",
     "tslint-loader": "^3.3.0",
     "typescript": "^2.1.5",

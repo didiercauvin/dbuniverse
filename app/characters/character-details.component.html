@@ -1,1 +1,15 @@
-details du perso!
+<div *ngIf="character">
+    <div>Fiche détaillée de {{character.name}}</div>
+    <div>
+        <img [src]='character.imageUrl'
+             [width]='imageWidth'
+             [height]='imageHeight'
+         />
+         <div>{{character.description}}</div>
+    </div>
+</div>
+<div>
+    <a class='btn btn-default' (click)='onBack()'>
+        <i class='glyphicon glyphicon-chevron-left'></i>Retour
+    </a>
+</div>
