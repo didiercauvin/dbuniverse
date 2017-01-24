@@ -26,7 +26,19 @@ export class InMemoryDbUniverseService implements InMemoryDbService {
                 "description": "Vegeta est un Saïyen de sang royal. Il est le fils du Roi Vegeta qui régnait sur la planète du même nom avant que celle-ci ne soit détruite par Freezer.\nIl débarque sur Terre avec Nappa après la défaite de Raditz avec la ferme intention de se débarrasser de Goku et de s’emparer des Dragon Ball.\nFier et ombrageux, il sera le rival incessant de Goku, mais aussi un de ses plus proches compagnons.\nContre toute attente, il se rapprochera plus tard de Bulma avec qui il aura un fils, Trunks, puis une fille, Bra.\n"
             }
         ];
-        // console.log(data);
-        return { characters };
+
+        let books = [
+            {
+                "id": 1,
+                "category": "db",
+                "title": "Tome 41",
+                "imageUrl": "http://www.glenatmanga.com/img/cata/02couv/9782723449380-G.jpg"
+            }
+        ];
+        
+        return { 
+            characters,
+            books
+         };
     }
 }

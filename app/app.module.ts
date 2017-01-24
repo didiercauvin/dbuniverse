@@ -5,6 +5,7 @@ import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
 import { AppComponent }  from './app.component';
 import { WelcomeModule } from './welcome/welcome.module';
 import { CategoryModule } from './categories/category.module';
+import { BookModule } from './books/book.module';
 import { AppRoutingModule } from './app-routing.module';
 import { InMemoryDbUniverseService } from './inmemorydata.service';
 
@@ -14,6 +15,7 @@ import { InMemoryDbUniverseService } from './inmemorydata.service';
                   HttpModule,
                   WelcomeModule,
                   CategoryModule,
+                  BookModule,
                   AppRoutingModule,
                   InMemoryWebApiModule.forRoot(InMemoryDbUniverseService)
                 ],
