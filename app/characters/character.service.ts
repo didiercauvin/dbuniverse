@@ -8,15 +8,16 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class CharacterService {
     
+    private charactersUrl: string = 'app/characters';
+
     constructor(private _http: Http) {}
     
     public getCharacters(category: string): Observable<ICharacter[]> {
-        const url = 'data/' + category + '-characters.json';
-        
+
         return this._http
-                        .get(url)
-                        .map((response: Response) => <ICharacter[]>response.json())
-                        .catch(this.handleError);
+                    .get(this.charactersUrl)
+                    .map((response: Response) => <ICharacter[]>response.json().data.filter((c: ICharacter) => c.category === category))
+                    .catch(this.handleError);
     }
 
     public getCharacter(category: string, id: number): Observable<ICharacter> {

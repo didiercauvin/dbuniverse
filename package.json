@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@types/node": "^7.0.0",
+    "angular2-in-memory-web-api": "^0.0.21",
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^3.0.0-beta.18",
     "extract-text-webpack-plugin": "^1.0.1",
