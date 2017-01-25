@@ -35,4 +35,19 @@ export class CharacterDetailsComponent implements OnInit {
         this._router.navigate(['../'], {relativeTo: this._route}); //, {category: this._route.snapshot.params['category']}
     }
 
+    onNextCharacter(): void {
+        let category = this._route.snapshot.params['category'];
+        let id = +this._route.snapshot.params['id'];
+        this._characterService
+            .getPreviousCharacterId(category, id)
+            .subscribe(
+                (previousId: number) => this._router.navigate(['../', previousId]),
+                error => console.log(error)
+            )
+    }
+
+    onPreviousCharacter(): void {
+
+    }
+
 }

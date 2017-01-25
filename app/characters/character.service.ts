@@ -22,6 +22,11 @@ export class CharacterService {
         return this.getCharacters(category)
                    .map(characters => characters.filter(c => c.id === id)[0]);
     }
+
+    public getPreviousCharacterId(category: string, id: number): Observable<number> {
+        return this.getCharacters(category)
+                    .map(characters => characters.filter(c => c.id === id)[0].id);
+    }
     
     private handleError(error: Response) {
         return Observable.throw(error || 'Server error');

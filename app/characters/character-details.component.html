@@ -1,6 +1,11 @@
 <div *ngIf="character">
     <div>Fiche détaillée de {{character.name}}</div>
     <div>
+        <a class='btn btn-default' (click)='onBack()'>
+            <i class='glyphicon glyphicon-chevron-left'></i>Retour à la liste
+        </a>
+    </div>
+    <div>
         <img [src]='character.imageUrl'
              [width]='imageWidth'
              [height]='imageHeight'
@@ -9,7 +14,10 @@
     </div>
 </div>
 <div>
-    <a class='btn btn-default' (click)='onBack()'>
-        <i class='glyphicon glyphicon-chevron-left'></i>Retour
+    <a class='btn btn-default' (click)='onPreviousCharacter()'>
+        <i class='glyphicon glyphicon-chevron-left'></i>Perso précédent
+    </a>
+    <a class='btn btn-default' (click)='onNextCharacter()'>
+        Perso suivant<i class='glyphicon glyphicon-chevron-right'></i>
     </a>
 </div>
