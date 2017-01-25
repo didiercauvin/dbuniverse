@@ -28,8 +28,7 @@ export class CharacterService {
     }
 
     private getUrl(category: string): string {
-        const url = 'app/' + category + '/characters';
-        console.log(url);
+        const url = 'app/characters' + category;
         return url;
     }
 }

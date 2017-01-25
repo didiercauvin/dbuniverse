@@ -13,12 +13,17 @@ export class BookService {
 
     getBooks(category: string): Observable<IBook[]> {
         return this._http
-                        .get(this.url)
+                        .get(this.getUrl(category))
                         .map((response: Response) => <IBook[]>response.json().data.filter((b: IBook) => b.category === category))
                         .catch(this.handleError);
     }
 
     handleError(error: Response) {
         return Observable.throw(error || 'Server error');
+    }
+
+    private getUrl(category: string): string {
+        const url = 'app/books' + category;
+        return url;
     }
 }

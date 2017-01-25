@@ -3,19 +3,16 @@ import { InMemoryDbService } from 'angular2-in-memory-web-api';
 export class InMemoryDbUniverseService implements InMemoryDbService {
     
     createDb() {
-        // const charactersDb = this.getDbCharacters();
-        // const charactersDbz = this
+        const charactersdb = this.getDbCharacters();
+        const charactersdbz = this.getDbzCharacters();
+        const booksdb = this.getDbBooks();
+        const booksdbz = this.getDbzBooks();
 
         return {
-
-            db: {
-                characters: ,
-                books: this.getDbBooks()
-            },
-            dbz: {
-                characters: this.getDbzCharacters(),
-                books: this.getDbzBooks()
-            }
+            charactersdb,
+            charactersdbz,
+            booksdb,
+            booksdbz
          };
     }
 
