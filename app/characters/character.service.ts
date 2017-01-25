@@ -8,25 +8,28 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class CharacterService {
     
-    private charactersUrl: string = 'app/characters';
-
     constructor(private _http: Http) {}
     
     public getCharacters(category: string): Observable<ICharacter[]> {
 
         return this._http
-                    .get(this.charactersUrl)
+                    .get(this.getUrl(category))
                     .map((response: Response) => <ICharacter[]>response.json().data.filter((c: ICharacter) => c.category === category))
                     .catch(this.handleError);
     }
 
     public getCharacter(category: string, id: number): Observable<ICharacter> {
-        console.log('looking for characterid ', id, ' in ', category, ' collection');
         return this.getCharacters(category)
                    .map(characters => characters.filter(c => c.id === id)[0]);
     }
     
     private handleError(error: Response) {
         return Observable.throw(error || 'Server error');
+    }
+
+    private getUrl(category: string): string {
+        const url = 'app/' + category + '/characters';
+        console.log(url);
+        return url;
     }
 }

@@ -1,1 +1,10 @@
-Liste des livres!
+<div>
+    <h2>Liste des livres!</h2>
+    <div>
+        <ul>
+            <li *ngFor="let book of books">
+                <img [src]='book.imageUrl' [width]='imageWidth' [height]='imageHeight' /><span>{{book.title}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
