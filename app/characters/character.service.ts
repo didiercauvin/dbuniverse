@@ -23,9 +23,14 @@ export class CharacterService {
                    .map(characters => characters.filter(c => c.id === id)[0]);
     }
 
+    public getNextCharacterId(category: string, id: number): Observable<number> {
+        return this.getCharacters(category)
+                    .map(characters => this.getNextId(characters, id));
+    }
+
     public getPreviousCharacterId(category: string, id: number): Observable<number> {
         return this.getCharacters(category)
-                    .map(characters => characters.filter(c => c.id === id)[0].id);
+                    .map(characters => this.getPreviousId(characters, id));
     }
     
     private handleError(error: Response) {
@@ -35,5 +40,27 @@ export class CharacterService {
     private getUrl(category: string): string {
         const url = 'app/characters' + category;
         return url;
+    }
+
+    private getNextId(characters: ICharacter[], id: number) {
+        const ids = characters.map(c => c.id);
+        let currentIndex = ids.indexOf(id);
+        
+        if (currentIndex >= 0 && currentIndex < ids.length - 1) {
+            return ids[currentIndex + 1];
+        }
+        
+        return id;
+    }
+
+    private getPreviousId(characters: ICharacter[], id: number) {
+        const ids = characters.map(c => c.id);
+        let currentIndex = ids.indexOf(id);
+        
+        if (currentIndex > 0) {
+            return ids[currentIndex - 1];
+        }
+        
+        return id;
     }
 }

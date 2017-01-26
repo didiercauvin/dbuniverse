@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { CharacterService } from './character.service';
 import { ICharacter } from './character';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
     moduleId: module.id.toString(),
@@ -21,14 +23,12 @@ export class CharacterDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        let category = this._route.snapshot.params['category'];
-        let id = +this._route.snapshot.params['id'];
-        this._characterService
-                .getCharacter(category, id)
-                .subscribe(
-                    character => this.character = character,
-                    error => console.log(error)
-                )
+        this._route.params
+            .switchMap((params: Params) => this._characterService.getCharacter(params['category'], +params['id']))
+            .subscribe(
+                (character: ICharacter) => this.character = character,
+                error => console.log(error)
+            );
     }
 
     onBack(): void {
@@ -39,15 +39,22 @@ export class CharacterDetailsComponent implements OnInit {
         let category = this._route.snapshot.params['category'];
         let id = +this._route.snapshot.params['id'];
         this._characterService
-            .getPreviousCharacterId(category, id)
+            .getNextCharacterId(category, id)
             .subscribe(
-                (previousId: number) => this._router.navigate(['../', previousId]),
+                (id: number) => this._router.navigate(['../', id], {relativeTo: this._route}),
                 error => console.log(error)
             )
     }
 
     onPreviousCharacter(): void {
-
+        let category = this._route.snapshot.params['category'];
+        let id = +this._route.snapshot.params['id'];
+        this._characterService
+            .getPreviousCharacterId(category, id)
+            .subscribe(
+                (id: number) => this._router.navigate(['../', id], {relativeTo: this._route}),
+                error => console.log(error)
+            )
     }
 
 }
