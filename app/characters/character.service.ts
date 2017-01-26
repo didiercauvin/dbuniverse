@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { ICharacter} from './character';
+import { ICharacter, ICharacterInfo} from './character';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -21,6 +21,18 @@ export class CharacterService {
     public getCharacter(category: string, id: number): Observable<ICharacter> {
         return this.getCharacters(category)
                    .map(characters => characters.filter(c => c.id === id)[0]);
+    }
+
+    public getCharacterInfo(category: string, id: number): Observable<ICharacterInfo> {
+        return this.getCharacters(category)
+                   .map(characters => {
+                       let c = characters.filter(c => c.id === id)[0];
+                       return <ICharacterInfo> {
+                           character: c,
+                           isFirst: this.getPreviousId(characters, id) === id,
+                           isLast: this.getNextId(characters, id) === id
+                       }
+                   });
     }
 
     public getNextCharacterId(category: string, id: number): Observable<number> {

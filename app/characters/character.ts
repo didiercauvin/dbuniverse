@@ -5,3 +5,9 @@ export interface ICharacter {
     name: string;
     description: string;
 }
+
+export interface ICharacterInfo {
+    character: ICharacter;
+    isFirst: boolean;
+    isLast: boolean;
+}
