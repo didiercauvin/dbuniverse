@@ -67,4 +67,11 @@ export class CharacterDetailsComponent implements OnInit {
             )
     }
 
+    onEdit(): void {
+        let category = this._route.snapshot.params['category'];
+        let id = +this._route.snapshot.params['id'];
+
+        this._router.navigate(['edit'], {relativeTo: this._route});
+    }
+
 }

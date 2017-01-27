@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { CharacterRoutingModule } from './character-routing.module';
 import { CharacterListComponent } from './character-list.component';
 import { CharacterDetailsComponent } from './character-details.component';
+import { CharacterFormComponent } from './character-form.component';
 import { CharacterService } from './character.service';
 
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
         CharacterRoutingModule
     ],
     declarations: [
         CharacterListComponent,
-        CharacterDetailsComponent
+        CharacterDetailsComponent,
+        CharacterFormComponent
     ],
     exports: [
         CharacterListComponent,
