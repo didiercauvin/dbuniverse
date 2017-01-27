@@ -32,6 +32,13 @@ export class InMemoryDbUniverseService implements InMemoryDbService {
                 "name": "Songoku",
                 "description": "Goku est un jeune garçon au cœur pur doté d’une queue de singe et d’une force extraordinaire.\nSeule petite ombre au tableau : il a tendance à se transformer en gorille géant lorsqu’il regarde la pleine lune.\nGoku ne se sépare jamais du bâton que lui a laissé son grand-père adoptif, Gohan, et qui a le pouvoir de changer de taille sur commande. Sa panoplie va s’étoffer par la suite avec le nuage magique offert par Tortue Géniale, qui lui permettra de parcourir des distances formidables en un rien de temps.\nAu fil de ses aventures, Goku va gagner en expérience pour devenir le plus puissant guerrier de la terre.\nIl apprendra notamment à maîtriser à la perfection la technique du Kamehameha, qui permet de concentrer sa force intérieure pour propulser des boules d’énergie destructrices."
             },
+            {
+                "id": 3,
+                "category": "db",
+                "imageUrl": "http://t0.gstatic.com/images?q=tbn:ANd9GcQ6t6fnkmF4KxL1FWi7oaGbBAoN1-P2asbz31JISQ2g0q8iFiT68LIDr5c",
+                "name": "Chichi",
+                "description": "Fille de Gyûmaô, Chichi rencontre Goku alors qu’elle n’est encore qu’une enfant. Elle n’en demeure pas moins, déjà à l’époque, une guerrière redoutable, ce qu’apprendra à ses dépens le premier dinosaure à essayer de la manger."
+            },
         ];
     }
 

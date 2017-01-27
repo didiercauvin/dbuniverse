@@ -12,12 +12,13 @@
          />
          <div>{{character.description}}</div>
     </div>
+    <div>
+        <a *ngIf="!isFirst" class='btn btn-default' (click)='onPreviousCharacter()'>
+            <i class='glyphicon glyphicon-chevron-left'></i>Perso précédent
+        </a>
+        <a *ngIf="!isLast" class='btn btn-default' (click)='onNextCharacter()'>
+            Perso suivant<i class='glyphicon glyphicon-chevron-right'></i>
+        </a>
+    </div>
 </div>
-<div>
-    <a class='btn btn-default' (click)='onPreviousCharacter()'>
-        <i class='glyphicon glyphicon-chevron-left'></i>Perso précédent
-    </a>
-    <a class='btn btn-default' (click)='onNextCharacter()'>
-        Perso suivant<i class='glyphicon glyphicon-chevron-right'></i>
-    </a>
-</div>
+

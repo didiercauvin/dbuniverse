@@ -1,5 +1,5 @@
 import { Component, OnInit, trigger, state, style, transition, animate, keyframes } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { CharacterService } from './character.service';
 
 @Component({
@@ -31,12 +31,13 @@ export class CharacterListComponent implements OnInit {
     constructor(private _service: CharacterService, private _route: ActivatedRoute) {}
     
     public ngOnInit(): void {
-        let category = this._route.snapshot.params['category'];
-        this._service
-                .getCharacters(category)
-                .subscribe(
-                    characters => this.characters = characters,
-                    error => console.log(<any>error)       
-                );
+
+        this._route.params
+            .switchMap((params: Params) => this._service.getCharacters(params['category']))
+            .subscribe(
+                characters => this.characters = characters,
+                error => console.log(<any>error)
+            );
+
     }
 }

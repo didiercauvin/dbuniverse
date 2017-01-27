@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { CharacterService } from './character.service';
-import { ICharacter } from './character';
+import { ICharacter, ICharacterInfo } from './character';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 
@@ -15,6 +15,8 @@ export class CharacterDetailsComponent implements OnInit {
     character: ICharacter;
     imageWidth: number = 150;
     imageHeight: number = 300;
+    isFirst: boolean;
+    isLast: boolean;
 
     constructor(
         private _characterService: CharacterService, 
@@ -23,12 +25,20 @@ export class CharacterDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+
         this._route.params
             .switchMap((params: Params) => this._characterService.getCharacter(params['category'], +params['id']))
             .subscribe(
-                (character: ICharacter) => this.character = character,
+                (info: ICharacterInfo) => {
+                    console.log(info);
+                    this.character = info.character,
+                    this.isFirst = info.isFirst,
+                    this.isLast = info.isLast
+                },
                 error => console.log(error)
             );
+
+        
     }
 
     onBack(): void {

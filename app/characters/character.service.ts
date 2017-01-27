@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { ICharacter, ICharacterInfo} from './character';
+import { ICharacter, ICharacterInfo } from './character';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -18,22 +18,29 @@ export class CharacterService {
                     .catch(this.handleError);
     }
 
-    public getCharacter(category: string, id: number): Observable<ICharacter> {
-        return this.getCharacters(category)
-                   .map(characters => characters.filter(c => c.id === id)[0]);
-    }
-
-    public getCharacterInfo(category: string, id: number): Observable<ICharacterInfo> {
+    public getCharacter(category: string, id: number): Observable<ICharacterInfo> {
         return this.getCharacters(category)
                    .map(characters => {
-                       let c = characters.filter(c => c.id === id)[0];
-                       return <ICharacterInfo> {
+                       const c = characters.filter(c => c.id === id)[0];
+                       return {
                            character: c,
                            isFirst: this.getPreviousId(characters, id) === id,
                            isLast: this.getNextId(characters, id) === id
                        }
-                   });
+                    });
     }
+
+    // public getCharacterInfo(category: string, id: number): Observable<ICharacterInfo> {
+    //     return this.getCharacters(category)
+    //                .map(characters => {
+    //                    let c = characters.filter(c => c.id === id)[0];
+    //                    return <ICharacterInfo> {
+    //                        character: c,
+    //                        isFirst: this.getPreviousId(characters, id) === id,
+    //                        isLast: this.getNextId(characters, id) === id
+    //                    }
+    //                });
+    // }
 
     public getNextCharacterId(category: string, id: number): Observable<number> {
         return this.getCharacters(category)
@@ -43,6 +50,16 @@ export class CharacterService {
     public getPreviousCharacterId(category: string, id: number): Observable<number> {
         return this.getCharacters(category)
                     .map(characters => this.getPreviousId(characters, id));
+    }
+
+    public isLastCharacter(category: string, id: number): Observable<boolean> {
+        return this.getNextCharacterId(category, id)
+                    .map(i => i === id);
+    }
+
+    public isFirstCharacter(category: string, id: number): Observable<boolean> {
+        return this.getPreviousCharacterId(category, id)
+                    .map(i => i === id);
     }
     
     private handleError(error: Response) {
