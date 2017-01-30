@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CharacterRoutingModule } from './character-routing.module';
 import { CharacterListComponent } from './character-list.component';
 import { CharacterDetailsComponent } from './character-details.component';
@@ -11,6 +11,7 @@ import { CharacterService } from './character.service';
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         CharacterRoutingModule
     ],
     declarations: [

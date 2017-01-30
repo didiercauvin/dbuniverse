@@ -1,34 +1,37 @@
 <div class='container'>
     <h1>Edition d'un personnage</h1>
-    <form *ngIf="model">
+    <form [formGroup]="complexForm" *ngIf="model" (ngSubmit)="onSubmit(complexForm.value)">
         <div class="form-group">
             <label for="category">Catégorie</label>
-            <select class="form-control" id="category" 
+            <select class="form-control" id="category"
                     required
-                    [(ngModel)]="model.category"
+                    [formControl]="complexForm.controls['category']"
                     name="category">
                 <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
             </select>
         </div>
         <div class="form-group">
             <label for="name">Nom</label>
-            <input  type="text" class="form-control" id="name" 
+            <input  type="text" class="form-control" id="name"
+                    placeholder="Name..." 
                     required
-                    [(ngModel)]="model.name"
+                    [formControl]="complexForm.controls['name']"
                     name="name">
         </div>
         <div class="form-group">
             <label for="description">Description</label>
             <input type="text" class="form-control" id="description" 
+                    placeholder="Description..."
                     required
-                    [(ngModel)]="model.description"
+                    [formControl]="complexForm.controls['description']"
                     name="description">
         </div>
         <div class="form-group">
             <label for="imageUrl">Url de l'image</label>
             <input type="text" class="form-control" id="imageUrl" 
+                    placeholder="url..."
                     required
-                    [(ngModel)]="model.imageUrl"
+                    [formControl]="complexForm.controls['imageUrl']"
                     name="imageUrl">
         </div>
 

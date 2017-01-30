@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ICharacter, ICharacterInfo } from './character';
 import 'rxjs/add/operator/map';
@@ -30,18 +30,6 @@ export class CharacterService {
                     });
     }
 
-    // public getCharacterInfo(category: string, id: number): Observable<ICharacterInfo> {
-    //     return this.getCharacters(category)
-    //                .map(characters => {
-    //                    let c = characters.filter(c => c.id === id)[0];
-    //                    return <ICharacterInfo> {
-    //                        character: c,
-    //                        isFirst: this.getPreviousId(characters, id) === id,
-    //                        isLast: this.getNextId(characters, id) === id
-    //                    }
-    //                });
-    // }
-
     public getNextCharacterId(category: string, id: number): Observable<number> {
         return this.getCharacters(category)
                     .map(characters => this.getNextId(characters, id));
@@ -60,6 +48,25 @@ export class CharacterService {
     public isFirstCharacter(category: string, id: number): Observable<boolean> {
         return this.getPreviousCharacterId(category, id)
                     .map(i => i === id);
+    }
+
+    public save(category: string, character: ICharacter): Observable<ICharacter> {
+        // if (character.id) {
+        //     return this.put(character);
+        // }
+
+        return this.post(category, character);
+    }
+
+    private post(category: string, character: ICharacter): Observable<ICharacter> {
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        return this._http
+                    .post(this.getUrl(category), JSON.stringify(character), {headers: headers})
+                    .map((response: Response) => <ICharacter>response.json().data)
+                    .catch(this.handleError);
     }
     
     private handleError(error: Response) {
