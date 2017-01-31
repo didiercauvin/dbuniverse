@@ -8,7 +8,8 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class CharacterService {
-    
+    data: ICharacter[];
+
     constructor(private _http: Http) {}
     
     public getCharacters(category: string): Observable<ICharacter[]> {
@@ -16,11 +17,18 @@ export class CharacterService {
         // for(let i = 0; i < 10; i++) {
         //     console.log(UUID.UUID());
         // }
-
+        if (this.data) {
+            return Observable.of(this.data);
+        }
+        else {
         return this._http
                     .get(this.getUrl(category))
-                    .map((response: Response) => <ICharacter[]>response.json().data.filter((c: ICharacter) => c.category === category))
+                    .map((response: Response) => { 
+                        this.data = <ICharacter[]>response.json().data.filter((c: ICharacter) => c.category === category)
+                        return this.data;
+                    })
                     .catch(this.handleError);
+        }
     }
 
     public getCharacter(category: string, id: string): Observable<ICharacterInfo> {
@@ -83,10 +91,14 @@ export class CharacterService {
         });
 
         character.id = UUID.UUID();
-
+        
         return this._http
                     .post(this.getUrl(category), JSON.stringify(character), {headers: headers})
-                    .map((response: Response) => <ICharacter>response.json().data)
+                    .map((response: Response) => {
+                        let c = <ICharacter>response.json().data;
+                        this.data.push(c);
+                        return c;
+                    })
                     .catch(this.handleError);
     }
     
