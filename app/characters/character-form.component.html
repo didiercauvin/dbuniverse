@@ -1,40 +1,43 @@
 <div class='container'>
     <h1>Edition d'un personnage</h1>
-    <form [formGroup]="complexForm" *ngIf="model" (ngSubmit)="onSubmit(complexForm.value)">
+    {{diagnostic}}
+    <form *ngIf="model" (ngSubmit)="onSubmit()" #characterForm="ngForm">
         <div class="form-group">
             <label for="category">Catégorie</label>
-            <select class="form-control" id="category"
+            <select class="form-control" id="category" 
                     required
-                    [formControl]="complexForm.controls['category']"
+                    [(ngModel)]="model.category"
                     name="category">
                 <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
             </select>
         </div>
         <div class="form-group">
             <label for="name">Nom</label>
-            <input  type="text" class="form-control" id="name"
-                    placeholder="Name..." 
+            <input  type="text" class="form-control" id="name" 
                     required
-                    [formControl]="complexForm.controls['name']"
-                    name="name">
+                    [(ngModel)]="model.name"
+                    name="name"
+                    #name="ngModel">
+            <div [hidden]="name.valid || name.pristine"
+                class="alert alert-danger">
+                Le nom est requis
+            </div>
         </div>
         <div class="form-group">
             <label for="description">Description</label>
             <input type="text" class="form-control" id="description" 
-                    placeholder="Description..."
                     required
-                    [formControl]="complexForm.controls['description']"
+                    [(ngModel)]="model.description"
                     name="description">
         </div>
         <div class="form-group">
             <label for="imageUrl">Url de l'image</label>
             <input type="text" class="form-control" id="imageUrl" 
-                    placeholder="url..."
                     required
-                    [formControl]="complexForm.controls['imageUrl']"
+                    [(ngModel)]="model.imageUrl"
                     name="imageUrl">
         </div>
 
-        <button type="submit" class="btn btn-default">Enregistrer</button>
+        <button type="submit" class="btn btn-default" [disabled]="!characterForm.form.valid">Enregistrer</button>
     </form>
 </div>

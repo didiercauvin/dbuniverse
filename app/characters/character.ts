@@ -1,5 +1,5 @@
 export interface ICharacter {
-    id: number;
+    id: string;
     category: string;
     imageUrl: string;
     name: string;

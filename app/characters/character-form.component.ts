@@ -13,6 +13,7 @@ export class CharacterFormComponent implements OnInit {
     categories: string[];
     model: ICharacter;
     complexForm: FormGroup;
+    category: string;
 
     constructor(
         private _characterService: CharacterService,
@@ -20,11 +21,11 @@ export class CharacterFormComponent implements OnInit {
         private _router: Router,
         private fb: FormBuilder
     ) {
-        let category = this._route.snapshot.params['category'];
+        this.category = this._route.snapshot.params['category'];
         this.complexForm = fb.group({
             'name': '',
             'description': '',
-            'category': category,
+            'category': this.category,
             'imageUrl': ''
         });
     }
@@ -35,18 +36,39 @@ export class CharacterFormComponent implements OnInit {
             "dbz"
         ];
 
-        let category = this._route.snapshot.params['category'];
-        let id = +this._route.snapshot.params['id'];
+        let id = this._route.snapshot.params['id'];
 
-        this._characterService
-                .getCharacter(category, id)
+        if (id) {
+            this._characterService
+                .getCharacter(this.category, id)
                 .subscribe(
                     (info: ICharacterInfo) => this.model = info.character,
                     error => console.log(error)
                 )
+        }
+        else {
+            this.model = {
+                id: null,
+                category: this.category,
+                name: '',
+                description: '',
+                imageUrl: ''
+            };
+        }
     }
 
-    public onSubmit(data: any) {
-        console.log(data);
+    public onSubmit() {
+        this._characterService
+                .save(this.category, this.model)
+                .subscribe(
+                    (character: ICharacter) => this.onBack(),
+                    error => console.log(error)
+                );
     }
+
+    onBack(): void {
+        this._router.navigate(['../'], {relativeTo: this._route});
+    }
+
+    get diagnostic() { return JSON.stringify(this.model); }
 }

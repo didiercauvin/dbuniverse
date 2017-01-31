@@ -8,6 +8,7 @@ import { CharacterFormComponent } from './character-form.component';
     imports: [
         RouterModule.forChild([
             { path: 'category/:category/characters', component: CharacterListComponent },
+            { path: 'category/:category/characters/edit', component: CharacterFormComponent },
             { path: 'category/:category/characters/:id', component: CharacterDetailsComponent },
             { path: 'category/:category/characters/:id/edit', component: CharacterFormComponent }
         ])

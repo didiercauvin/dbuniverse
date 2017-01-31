@@ -3,6 +3,11 @@
         {{pageTitle}}
     </div>
     <div>
+        <div>
+            <a class='btn btn-default' (click)='onNew()'>
+                <i class='glyphicon glyphicon-plus'></i> Ajouter un personnage
+            </a>
+        </div>
         <ul class="characters">
             <li *ngFor="let character of characters">
                 <a [routerLink]="character.id" routerLinkActive="true"><span class="badge">{{character.name}}</span></a>

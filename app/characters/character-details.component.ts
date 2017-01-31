@@ -27,7 +27,7 @@ export class CharacterDetailsComponent implements OnInit {
     ngOnInit(): void {
 
         this._route.params
-            .switchMap((params: Params) => this._characterService.getCharacter(params['category'], +params['id']))
+            .switchMap((params: Params) => this._characterService.getCharacter(params['category'], params['id']))
             .subscribe(
                 (info: ICharacterInfo) => {
                     console.log(info);
@@ -42,35 +42,32 @@ export class CharacterDetailsComponent implements OnInit {
     }
 
     onBack(): void {
-        this._router.navigate(['../'], {relativeTo: this._route}); //, {category: this._route.snapshot.params['category']}
+        this._router.navigate(['../'], {relativeTo: this._route});
     }
 
     onNextCharacter(): void {
         let category = this._route.snapshot.params['category'];
-        let id = +this._route.snapshot.params['id'];
+        let id: string = this._route.snapshot.params['id'];
         this._characterService
             .getNextCharacterId(category, id)
             .subscribe(
-                (id: number) => this._router.navigate(['../', id], {relativeTo: this._route}),
+                (id: string) => this._router.navigate(['../', id], {relativeTo: this._route}),
                 error => console.log(error)
             )
     }
 
     onPreviousCharacter(): void {
         let category = this._route.snapshot.params['category'];
-        let id = +this._route.snapshot.params['id'];
+        let id = this._route.snapshot.params['id'];
         this._characterService
             .getPreviousCharacterId(category, id)
             .subscribe(
-                (id: number) => this._router.navigate(['../', id], {relativeTo: this._route}),
+                (id: string) => this._router.navigate(['../', id], {relativeTo: this._route}),
                 error => console.log(error)
             )
     }
 
     onEdit(): void {
-        let category = this._route.snapshot.params['category'];
-        let id = +this._route.snapshot.params['id'];
-
         this._router.navigate(['edit'], {relativeTo: this._route});
     }
 

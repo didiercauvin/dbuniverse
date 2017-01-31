@@ -1,5 +1,5 @@
 import { Component, OnInit, trigger, state, style, transition, animate, keyframes } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CharacterService } from './character.service';
 
 @Component({
@@ -28,7 +28,11 @@ export class CharacterListComponent implements OnInit {
     public characters: any[];
     // public state: string = 'fadeIn';
 
-    constructor(private _service: CharacterService, private _route: ActivatedRoute) {}
+    constructor(
+        private _service: CharacterService, 
+        private _route: ActivatedRoute,
+        private _router: Router
+    ) {}
     
     public ngOnInit(): void {
 
@@ -39,5 +43,9 @@ export class CharacterListComponent implements OnInit {
                 error => console.log(<any>error)
             );
 
+    }
+
+    public onNew() {
+        this._router.navigate(['edit'], {relativeTo: this._route});
     }
 }

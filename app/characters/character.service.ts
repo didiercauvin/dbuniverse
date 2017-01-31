@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
+import { UUID } from 'angular2-uuid';
 import { Observable } from 'rxjs/Observable';
 import { ICharacter, ICharacterInfo } from './character';
 import 'rxjs/add/operator/map';
@@ -12,13 +13,17 @@ export class CharacterService {
     
     public getCharacters(category: string): Observable<ICharacter[]> {
 
+        // for(let i = 0; i < 10; i++) {
+        //     console.log(UUID.UUID());
+        // }
+
         return this._http
                     .get(this.getUrl(category))
                     .map((response: Response) => <ICharacter[]>response.json().data.filter((c: ICharacter) => c.category === category))
                     .catch(this.handleError);
     }
 
-    public getCharacter(category: string, id: number): Observable<ICharacterInfo> {
+    public getCharacter(category: string, id: string): Observable<ICharacterInfo> {
         return this.getCharacters(category)
                    .map(characters => {
                        const c = characters.filter(c => c.id === id)[0];
@@ -30,38 +35,54 @@ export class CharacterService {
                     });
     }
 
-    public getNextCharacterId(category: string, id: number): Observable<number> {
+    public getNextCharacterId(category: string, id: string): Observable<string> {
         return this.getCharacters(category)
                     .map(characters => this.getNextId(characters, id));
     }
 
-    public getPreviousCharacterId(category: string, id: number): Observable<number> {
+    public getPreviousCharacterId(category: string, id: string): Observable<string> {
         return this.getCharacters(category)
                     .map(characters => this.getPreviousId(characters, id));
     }
 
-    public isLastCharacter(category: string, id: number): Observable<boolean> {
+    public isLastCharacter(category: string, id: string): Observable<boolean> {
         return this.getNextCharacterId(category, id)
                     .map(i => i === id);
     }
 
-    public isFirstCharacter(category: string, id: number): Observable<boolean> {
+    public isFirstCharacter(category: string, id: string): Observable<boolean> {
         return this.getPreviousCharacterId(category, id)
                     .map(i => i === id);
     }
 
     public save(category: string, character: ICharacter): Observable<ICharacter> {
-        // if (character.id) {
-        //     return this.put(character);
-        // }
+        if (character.id) {
+            return this.put(category, character);
+        }
 
         return this.post(category, character);
+    }
+
+    private put(category: string, character: ICharacter): Observable<ICharacter> {
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        let url = `${this.getUrl(category)}/${character.id}`;
+        console.log('character', character);
+        console.log('url', url);
+        return this._http
+                    .put(url, JSON.stringify(character), {headers: headers})
+                    .map(() => character)
+                    .catch(this.handleError);
     }
 
     private post(category: string, character: ICharacter): Observable<ICharacter> {
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
+
+        character.id = UUID.UUID();
 
         return this._http
                     .post(this.getUrl(category), JSON.stringify(character), {headers: headers})
@@ -78,7 +99,7 @@ export class CharacterService {
         return url;
     }
 
-    private getNextId(characters: ICharacter[], id: number) {
+    private getNextId(characters: ICharacter[], id: string) {
         const ids = characters.map(c => c.id);
         let currentIndex = ids.indexOf(id);
         
@@ -89,7 +110,7 @@ export class CharacterService {
         return id;
     }
 
-    private getPreviousId(characters: ICharacter[], id: number) {
+    private getPreviousId(characters: ICharacter[], id: string) {
         const ids = characters.map(c => c.id);
         let currentIndex = ids.indexOf(id);
         
