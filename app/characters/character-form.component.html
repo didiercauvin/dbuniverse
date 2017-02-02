@@ -1,7 +1,7 @@
 <div class='container'>
     <h1>Edition d'un personnage</h1>
     {{diagnostic}}
-    <form *ngIf="model" (ngSubmit)="onSubmit()" #characterForm="ngForm">
+    <form *ngIf="model" (ngSubmit)="onSubmit()" #characterForm="ngForm" novalidate>
         <div class="form-group">
             <label for="category">Catégorie</label>
             <select class="form-control" id="category" 
@@ -38,6 +38,6 @@
                     name="imageUrl">
         </div>
 
-        <button type="submit" class="btn btn-default" [disabled]="!characterForm.form.valid">Enregistrer</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!characterForm.form.valid">Enregistrer</button>
     </form>
 </div>

@@ -8,27 +8,35 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class CharacterService {
-    data: ICharacter[];
+    private _data: Observable<ICharacter[]>;
+    private _values: ICharacter[];
+    private _categories = ["db", "dbz"];
 
-    constructor(private _http: Http) {}
-    
+    constructor(private _http: Http) { 
+        
+        this._data = new Observable<ICharacter[]>();
+
+        Observable.from(this._categories)
+                    .concatMap(
+                        (category: string) => {
+                            return Observable.defer(() => this._http.get(this.getUrl(category)))
+                        },
+                        (_, response: Response) => <ICharacter[]>response.json().data
+                    )
+                    .subscribe(
+                        (data: ICharacter[])  => {
+                            this._values = this._values.concat(data)
+                        },
+                        (err: any) => console.error(err),
+                        () => console.log(this._data)
+                    );
+
+    }
+
     public getCharacters(category: string): Observable<ICharacter[]> {
 
-        // for(let i = 0; i < 10; i++) {
-        //     console.log(UUID.UUID());
-        // }
-        if (this.data) {
-            return Observable.of(this.data);
-        }
-        else {
-        return this._http
-                    .get(this.getUrl(category))
-                    .map((response: Response) => { 
-                        this.data = <ICharacter[]>response.json().data.filter((c: ICharacter) => c.category === category)
-                        return this.data;
-                    })
-                    .catch(this.handleError);
-        }
+        return Observable.of(this._values.filter(c => c.category === category));
+
     }
 
     public getCharacter(category: string, id: string): Observable<ICharacterInfo> {
@@ -96,7 +104,7 @@ export class CharacterService {
                     .post(this.getUrl(category), JSON.stringify(character), {headers: headers})
                     .map((response: Response) => {
                         let c = <ICharacter>response.json().data;
-                        this.data.push(c);
+                        this._data[category].push(c);
                         return c;
                     })
                     .catch(this.handleError);

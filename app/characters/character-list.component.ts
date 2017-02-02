@@ -36,13 +36,19 @@ export class CharacterListComponent implements OnInit {
     
     public ngOnInit(): void {
 
+        this.getCharacters();
+
+    }
+
+    public getCharacters() {
+
         this._route.params
             .switchMap((params: Params) => this._service.getCharacters(params['category']))
             .subscribe(
                 characters => this.characters = characters,
                 error => console.log(<any>error)
             );
-
+            
     }
 
     public onNew() {
