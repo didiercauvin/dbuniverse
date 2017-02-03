@@ -5,14 +5,15 @@ import { CharacterRoutingModule } from './character-routing.module';
 import { CharacterListComponent } from './character-list.component';
 import { CharacterDetailsComponent } from './character-details.component';
 import { CharacterFormComponent } from './character-form.component';
-import { CharacterService } from './character.service';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        CharacterRoutingModule
+        CharacterRoutingModule,
+        CoreModule
     ],
     declarations: [
         CharacterListComponent,
@@ -22,9 +23,6 @@ import { CharacterService } from './character.service';
     exports: [
         CharacterListComponent,
         CharacterDetailsComponent
-    ],
-    providers: [
-        CharacterService    
     ]
 })
 export class CharacterModule {

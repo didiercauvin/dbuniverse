@@ -2,19 +2,21 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { UUID } from 'angular2-uuid';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ICharacter, ICharacterInfo } from './character';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class CharacterService {
-    private _data: Observable<ICharacter[]>;
+    private _data: BehaviorSubject<ICharacter[]>;
     private _values: ICharacter[];
     private _categories = ["db", "dbz"];
 
     constructor(private _http: Http) { 
         
-        this._data = new Observable<ICharacter[]>();
+        this._data = new BehaviorSubject<ICharacter[]>([]);
+        this._values = [];
 
         Observable.from(this._categories)
                     .concatMap(
@@ -25,17 +27,18 @@ export class CharacterService {
                     )
                     .subscribe(
                         (data: ICharacter[])  => {
-                            this._values = this._values.concat(data)
+                            this._values = this._values.concat(data);
                         },
                         (err: any) => console.error(err),
-                        () => console.log(this._data)
+                        () => this._data.next(this._values)
                     );
 
     }
-
+    
     public getCharacters(category: string): Observable<ICharacter[]> {
 
-        return Observable.of(this._values.filter(c => c.category === category));
+        return this._data 
+                    .map((characters: ICharacter[]) => characters.filter(c => c.category === category));
 
     }
 
@@ -104,7 +107,7 @@ export class CharacterService {
                     .post(this.getUrl(category), JSON.stringify(character), {headers: headers})
                     .map((response: Response) => {
                         let c = <ICharacter>response.json().data;
-                        this._data[category].push(c);
+                        this._values.push(c);
                         return c;
                     })
                     .catch(this.handleError);

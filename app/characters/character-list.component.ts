@@ -1,6 +1,6 @@
 import { Component, OnInit, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { CharacterService } from './character.service';
+import { CoreService } from '../core/core.service';
 
 @Component({
     moduleId: module.id.toString(),
@@ -29,7 +29,7 @@ export class CharacterListComponent implements OnInit {
     // public state: string = 'fadeIn';
 
     constructor(
-        private _service: CharacterService, 
+        private _service: CoreService, 
         private _route: ActivatedRoute,
         private _router: Router
     ) {}
@@ -43,7 +43,7 @@ export class CharacterListComponent implements OnInit {
     public getCharacters() {
 
         this._route.params
-            .switchMap((params: Params) => this._service.getCharacters(params['category']))
+            .switchMap((params: Params) => this._service.characterService.getCharacters(params['category']))
             .subscribe(
                 characters => this.characters = characters,
                 error => console.log(<any>error)

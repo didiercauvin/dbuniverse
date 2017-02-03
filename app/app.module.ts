@@ -8,6 +8,8 @@ import { CategoryModule } from './categories/category.module';
 import { BookModule } from './books/book.module';
 import { AppRoutingModule } from './app-routing.module';
 import { InMemoryDbUniverseService } from './inmemorydata.service';
+import { CoreModule } from './core/core.module';
+import { CoreService } from './core/core.service';
 
 @NgModule({
   imports:      [ 
@@ -17,9 +19,13 @@ import { InMemoryDbUniverseService } from './inmemorydata.service';
                   CategoryModule,
                   BookModule,
                   AppRoutingModule,
-                  InMemoryWebApiModule.forRoot(InMemoryDbUniverseService)
+                  InMemoryWebApiModule.forRoot(InMemoryDbUniverseService),
+                  CoreModule
                 ],
   declarations: [ AppComponent ],
-  bootstrap:    [ AppComponent ]
+  bootstrap:    [ AppComponent ],
+  providers: [
+    CoreService
+  ]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { CharacterService } from './character.service';
+import { CoreService } from '../core/core.service';
 import { ICharacter, ICharacterInfo } from './character';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
@@ -19,7 +19,7 @@ export class CharacterDetailsComponent implements OnInit {
     isLast: boolean;
 
     constructor(
-        private _characterService: CharacterService, 
+        private _service: CoreService, 
         private _route: ActivatedRoute,
         private _router: Router
     ) {}
@@ -27,7 +27,7 @@ export class CharacterDetailsComponent implements OnInit {
     ngOnInit(): void {
 
         this._route.params
-            .switchMap((params: Params) => this._characterService.getCharacter(params['category'], params['id']))
+            .switchMap((params: Params) => this._service.characterService.getCharacter(params['category'], params['id']))
             .subscribe(
                 (info: ICharacterInfo) => {
                     console.log(info);
@@ -48,7 +48,7 @@ export class CharacterDetailsComponent implements OnInit {
     onNextCharacter(): void {
         let category = this._route.snapshot.params['category'];
         let id: string = this._route.snapshot.params['id'];
-        this._characterService
+        this._service.characterService
             .getNextCharacterId(category, id)
             .subscribe(
                 (id: string) => this._router.navigate(['../', id], {relativeTo: this._route}),
@@ -59,7 +59,7 @@ export class CharacterDetailsComponent implements OnInit {
     onPreviousCharacter(): void {
         let category = this._route.snapshot.params['category'];
         let id = this._route.snapshot.params['id'];
-        this._characterService
+        this._service.characterService
             .getPreviousCharacterId(category, id)
             .subscribe(
                 (id: string) => this._router.navigate(['../', id], {relativeTo: this._route}),
