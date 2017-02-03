@@ -13,9 +13,11 @@ export class CharacterService {
     private _values: ICharacter[];
     private _categories = ["db", "dbz"];
 
-    constructor(private _http: Http) { 
-        
-        this._data = new BehaviorSubject<ICharacter[]>([]);
+    constructor(private _http: Http) { }
+    
+    public init() {
+
+        this._data = new BehaviorSubject<ICharacter[]>([]); 
         this._values = [];
 
         Observable.from(this._categories)
@@ -34,7 +36,7 @@ export class CharacterService {
                     );
 
     }
-    
+
     public getCharacters(category: string): Observable<ICharacter[]> {
 
         return this._data 

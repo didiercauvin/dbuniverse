@@ -1,4 +1,4 @@
-import { NgModule }      from '@angular/core';
+import { NgModule, APP_INITIALIZER }      from '@angular/core';
 import { HttpModule }    from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
@@ -10,6 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { InMemoryDbUniverseService } from './inmemorydata.service';
 import { CoreModule } from './core/core.module';
 import { CoreService } from './core/core.service';
+
+function loadData(service: CoreService) {
+    return () => service.load();
+}
 
 @NgModule({
   imports:      [ 
@@ -25,7 +29,13 @@ import { CoreService } from './core/core.service';
   declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ],
   providers: [
-    CoreService
+    CoreService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: loadData,
+      deps: [CoreService],
+      multi: true
+    }
   ]
 })
 export class AppModule { }
