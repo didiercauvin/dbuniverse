@@ -20,9 +20,7 @@ export class CoreService {
             .subscribe((categories: string[]) => {
                 this._characterService.init(categories);
                 this._bookService.init(categories);
-            } );
-        ;
-        // this._bookService.init();
+            });
     }
 
 }
