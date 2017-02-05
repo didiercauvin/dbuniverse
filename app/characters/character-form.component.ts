@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICharacter, ICharacterInfo } from './character';
-import { CoreService } from '../core/core.service';
+import { CharacterService } from './character.service';
 
 @Component({
     moduleId: module.id.toString(),
@@ -16,7 +16,7 @@ export class CharacterFormComponent implements OnInit {
     category: string;
 
     constructor(
-        private _service: CoreService,
+        private _service: CharacterService,
         private _route: ActivatedRoute,
         private _router: Router,
         private fb: FormBuilder
@@ -39,7 +39,7 @@ export class CharacterFormComponent implements OnInit {
         let id = this._route.snapshot.params['id'];
 
         if (id) {
-            this._service.characterService
+            this._service
                 .getCharacter(this.category, id)
                 .subscribe(
                     (info: ICharacterInfo) => this.model = info.character,
@@ -58,7 +58,7 @@ export class CharacterFormComponent implements OnInit {
     }
 
     public onSubmit() {
-        this._service.characterService
+        this._service
                 .save(this.category, this.model)
                 .subscribe(
                     (character: ICharacter) => this.onBack(),

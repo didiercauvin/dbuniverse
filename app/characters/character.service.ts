@@ -4,6 +4,7 @@ import { UUID } from 'angular2-uuid';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ICharacter, ICharacterInfo } from './character';
+import { CategoryService } from '../categories/category.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -11,35 +12,38 @@ import 'rxjs/add/operator/catch';
 export class CharacterService {
     private _data: BehaviorSubject<ICharacter[]>;
     private _values: ICharacter[];
-    private _categories = ["db", "dbz"];
+    // private _categories = ["db", "dbz"];
 
-    constructor(private _http: Http) { }
-    
-    public init() {
+    constructor(
+        private _http: Http,
+        private _categoryService: CategoryService
+    ) { }
 
-        this._data = new BehaviorSubject<ICharacter[]>([]); 
+    public init(categories: string[]) {
+
+        this._data = new BehaviorSubject<ICharacter[]>([]);
         this._values = [];
 
-        Observable.from(this._categories)
-                    .concatMap(
-                        (category: string) => {
-                            return Observable.defer(() => this._http.get(this.getUrl(category)))
-                        },
-                        (_, response: Response) => <ICharacter[]>response.json().data
-                    )
-                    .subscribe(
-                        (data: ICharacter[])  => {
-                            this._values = this._values.concat(data);
-                        },
-                        (err: any) => console.error(err),
-                        () => this._data.next(this._values)
-                    );
+        Observable.from(categories)
+            .concatMap(
+                (category: string) => {
+                    return Observable.defer(() => this._http.get(this.getUrl(category)))
+                },
+                (_, response: Response) => <ICharacter[]>response.json().data
+            )
+            .subscribe(
+                (data: ICharacter[])  => {
+                    this._values = this._values.concat(data);
+                },
+                (err: any) => console.error(err),
+                () => this._data.next(this._values)
+            );
 
     }
 
     public getCharacters(category: string): Observable<ICharacter[]> {
 
-        return this._data 
+        return this._data
                     .map((characters: ICharacter[]) => characters.filter(c => c.category === category));
 
     }
@@ -104,7 +108,7 @@ export class CharacterService {
         });
 
         character.id = UUID.UUID();
-        
+
         return this._http
                     .post(this.getUrl(category), JSON.stringify(character), {headers: headers})
                     .map((response: Response) => {
@@ -114,7 +118,7 @@ export class CharacterService {
                     })
                     .catch(this.handleError);
     }
-    
+
     private handleError(error: Response) {
         return Observable.throw(error || 'Server error');
     }
@@ -127,22 +131,22 @@ export class CharacterService {
     private getNextId(characters: ICharacter[], id: string) {
         const ids = characters.map(c => c.id);
         let currentIndex = ids.indexOf(id);
-        
+
         if (currentIndex >= 0 && currentIndex < ids.length - 1) {
             return ids[currentIndex + 1];
         }
-        
+
         return id;
     }
 
     private getPreviousId(characters: ICharacter[], id: string) {
         const ids = characters.map(c => c.id);
         let currentIndex = ids.indexOf(id);
-        
+
         if (currentIndex > 0) {
             return ids[currentIndex - 1];
         }
-        
+
         return id;
     }
 }
