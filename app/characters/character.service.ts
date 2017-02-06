@@ -10,9 +10,9 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class CharacterService {
+    
     private _data: BehaviorSubject<ICharacter[]>;
     private _values: ICharacter[];
-    // private _categories = ["db", "dbz"];
 
     constructor(
         private _http: Http,
@@ -36,7 +36,10 @@ export class CharacterService {
                     this._values = this._values.concat(data);
                 },
                 (err: any) => console.error(err),
-                () => this._data.next(this._values)
+                () => {
+                    console.log('characters loaded');
+                    this._data.next(this._values);
+                }
             );
 
     }

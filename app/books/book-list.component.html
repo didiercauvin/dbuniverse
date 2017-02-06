@@ -3,7 +3,7 @@
     <div>
         <ul>
             <li *ngFor="let book of books">
-                <img [src]='book.imageUrl' [width]='imageWidth' [height]='imageHeight' /><span>{{book.title}}</span>
+                <db-image [model]='book' [imageWidth]='imageWidth' [imageHeight]='imageHeight'></db-image>
             </li>
         </ul>
     </div>

@@ -26,7 +26,9 @@ function loadData(service: CoreService) {
                   InMemoryWebApiModule.forRoot(InMemoryDbUniverseService),
                   CoreModule
                 ],
-  declarations: [ AppComponent ],
+  declarations: [ 
+        AppComponent
+  ],
   bootstrap:    [ AppComponent ],
   providers: [
     CoreService,

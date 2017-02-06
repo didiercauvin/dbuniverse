@@ -15,7 +15,7 @@ export class CoreService {
 
     public load() {
 
-        this._categoryService
+        return this._categoryService
             .getCategories()
             .subscribe((categories: string[]) => {
                 this._characterService.init(categories);

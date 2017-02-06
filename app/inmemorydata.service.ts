@@ -49,14 +49,14 @@ export class InMemoryDbUniverseService implements InMemoryDbService {
                 "category": "db",
                 "title": "Tome 1",
                 "imageUrl": "http://www.glenatmanga.com/img/cata/02couv/9782723434621-G.jpg",
-                "description": ""
+                "description": "Tome 1"
             },
             {
                 "id": 2,
                 "category": "db",
                 "title": "Tome 2",
                 "imageUrl": "http://www.glenatmanga.com/img/cata/02couv/9782723434638-G.jpg",
-                "description": ""
+                "description": "Tome 2"
             }
         ];
     }
@@ -80,14 +80,14 @@ export class InMemoryDbUniverseService implements InMemoryDbService {
                 "category": "dbz",
                 "title": "Tome 41",
                 "imageUrl": "http://www.glenatmanga.com/img/cata/02couv/9782723449380-G.jpg",
-                "description": ""
+                "description": "Tome 41"
             },
             {
                 "id": 2,
                 "category": "dbz",
                 "title": "Tome 23",
                 "imageUrl": "http://www.glenatmanga.com/img/cata/02couv/9782723449205-G.jpg",
-                "description": ""
+                "description": "Tome 23"
             }
         ];
     }

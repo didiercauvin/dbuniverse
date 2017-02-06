@@ -10,21 +10,38 @@ export class BookService {
 
     private _url: string = 'app/books';
     private _data: BehaviorSubject<IBook[]>;
+    private _values: IBook[];
 
     constructor(private _http: Http) { }
 
     public init(categories: string[]) {
 
         this._data = new BehaviorSubject<IBook[]>([]);
+        this._values = [];
 
+        Observable.from(categories)
+                .concatMap(
+                    (category: string) => {
+                        return Observable.defer(() => this._http.get(this.getUrl(category)))
+                    },
+                    (_, response: Response) => <IBook[]>response.json().data
+                )
+                .subscribe(
+                    (data: IBook[]) => this._values = this._values.concat(data),
+                    (err: any) => console.error(err),
+                    () => {
+                        console.log('books loaded');
+                        this._data.next(this._values);
+                    }
+                )
 
     }
 
     getBooks(category: string): Observable<IBook[]> {
-        return this._http
-                        .get(this.getUrl(category))
-                        .map((response: Response) => <IBook[]>response.json().data.filter((b: IBook) => b.category === category))
-                        .catch(this.handleError);
+        
+        return this._data
+                    .map((books: IBook[]) => books.filter((b: IBook) => b.category === category));
+        
     }
 
     handleError(error: Response) {

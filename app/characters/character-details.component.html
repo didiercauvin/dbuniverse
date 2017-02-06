@@ -9,11 +9,7 @@
         </a>
     </div>
     <div>
-        <img [src]='character.imageUrl'
-             [width]='imageWidth'
-             [height]='imageHeight'
-         />
-         <div>{{character.description}}</div>
+         <db-image [model]='character'></db-image>
     </div>
     <div>
         <a *ngIf="!isFirst" class='btn btn-default' (click)='onPreviousCharacter()'>

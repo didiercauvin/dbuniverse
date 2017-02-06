@@ -1,9 +1,9 @@
-export interface ICharacter {
+import { IDbImageUrl } from '../shared/image';
+
+export interface ICharacter extends IDbImageUrl {
     id: string;
     category: string;
-    imageUrl: string;
     name: string;
-    description: string;
 }
 
 export interface ICharacterInfo {
