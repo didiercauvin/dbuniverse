@@ -61,5 +61,4 @@ export class CharacterFormComponent implements OnInit {
         this._router.navigate(['../'], {relativeTo: this._route});
     }
 
-    get diagnostic() { return JSON.stringify(this.model); }
 }

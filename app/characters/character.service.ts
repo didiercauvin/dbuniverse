@@ -64,35 +64,18 @@ export class CharacterService {
                     });
     }
 
-    public getNextCharacterId(category: string, id: string): Observable<string> {
-        return this.getCharacters(category)
-                    .map(characters => this.getNextId(characters, id));
-    }
-
-    public getPreviousCharacterId(category: string, id: string): Observable<string> {
-        return this.getCharacters(category)
-                    .map(characters => this.getPreviousId(characters, id));
-    }
-
-    public isLastCharacter(category: string, id: string): Observable<boolean> {
-        return this.getNextCharacterId(category, id)
-                    .map(i => i === id);
-    }
-
-    public isFirstCharacter(category: string, id: string): Observable<boolean> {
-        return this.getPreviousCharacterId(category, id)
-                    .map(i => i === id);
-    }
-
     public save(category: string, character: ICharacter): Observable<ICharacter> {
+
         if (character.id) {
             return this.put(category, character);
         }
 
         return this.post(category, character);
+
     }
 
     private put(category: string, character: ICharacter): Observable<ICharacter> {
+
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -104,9 +87,11 @@ export class CharacterService {
                     .put(url, JSON.stringify(character), {headers: headers})
                     .map(() => character)
                     .catch(this.handleError);
+
     }
 
     private post(category: string, character: ICharacter): Observable<ICharacter> {
+
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -121,18 +106,24 @@ export class CharacterService {
                         return c;
                     })
                     .catch(this.handleError);
+
     }
 
     private handleError(error: Response) {
+
         return Observable.throw(error || 'Server error');
+
     }
 
     private getUrl(category: string): string {
+
         const url = 'app/characters' + category;
         return url;
+
     }
 
     private getNextId(characters: ICharacter[], id: string) {
+
         const ids = characters.map(c => c.id);
         let currentIndex = ids.indexOf(id);
 
@@ -141,9 +132,11 @@ export class CharacterService {
         }
 
         return id;
+
     }
 
     private getPreviousId(characters: ICharacter[], id: string) {
+
         const ids = characters.map(c => c.id);
         let currentIndex = ids.indexOf(id);
 
@@ -152,5 +145,6 @@ export class CharacterService {
         }
 
         return id;
+        
     }
 }

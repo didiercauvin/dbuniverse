@@ -15,9 +15,6 @@ export class CharacterDetailsComponent implements OnInit {
     character: ICharacter;
     imageWidth: number = 150;
     imageHeight: number = 300;
-    isFirst: boolean;
-    isLast: boolean;
-
     previousId: string;
     nextId: string;
 
@@ -33,69 +30,25 @@ export class CharacterDetailsComponent implements OnInit {
             .switchMap((params: Params) => this._service.getCharacter(params['category'], params['id']))
             .subscribe(
                 (info: ICharacterInfo) => {
-                    
-                    console.info(info);
-
                     this.previousId = info.previousId;
                     this.nextId = info.nextId;
-                    this.character = info.character,
-                    this.isFirst = info.isFirst,
-                    this.isLast = info.isLast
+                    this.character = info.character
                 },
                 error => console.log(error)
             );
 
-
     }
 
     onBack(): void {
+
         this._router.navigate(['../'], {relativeTo: this._route});
-    }
-
-    onNextCharacter(): void {
-        let category = this._route.snapshot.params['category'];
-        let id: string = this._route.snapshot.params['id'];
-        this._service
-            .getNextCharacterId(category, id)
-            .subscribe(
-                (id: string) => this._router.navigate(['../', id], {relativeTo: this._route}),
-                error => console.log(error)
-            )
-    }
-
-    onPreviousCharacter(): void {
-        let category = this._route.snapshot.params['category'];
-        let id = this._route.snapshot.params['id'];
-        this._service
-            .getPreviousCharacterId(category, id)
-            .subscribe(
-                (id: string) => this._router.navigate(['../', id], {relativeTo: this._route}),
-                error => console.log(error)
-            )
-    }
-
-    goToPreviousId(): Observable<string> {
-
-        let category = this._route.snapshot.params['category'];
-        let id = this._route.snapshot.params['id'];
-        
-        return this._service
-            .getPreviousCharacterId(category, id);
-
-    }
-
-    goToNextId(): Observable<string> {
-
-        let category = this._route.snapshot.params['category'];
-        let id: string = this._route.snapshot.params['id'];
-
-        return this._service
-            .getNextCharacterId(category, id);
 
     }
 
     onEdit(): void {
+
         this._router.navigate(['edit'], {relativeTo: this._route});
+        
     }
 
 }

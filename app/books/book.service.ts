@@ -17,9 +17,9 @@ export class BookService {
 
     public init(categories: string[]) {
 
-        for(let i = 0; i < 10; i++) {
-            console.log(UUID.UUID());
-        }
+        // for(let i = 0; i < 10; i++) {
+        //     console.log(UUID.UUID());
+        // }
 
         this._data = new BehaviorSubject<IBook[]>([]);
         this._values = [];

@@ -33,6 +33,14 @@ export class BookListComponent implements OnInit {
     }
 
     onNew() {
+
         this._router.navigate(['edit'], {relativeTo: this._route});
+        
+    }
+
+    onBack(): void {
+
+        this._router.navigate(['../'], {relativeTo: this._route});
+
     }
 }

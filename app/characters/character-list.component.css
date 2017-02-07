@@ -1,3 +1,24 @@
-.characters {
-    list-style-type: none;
+
+h3 {
+  text-align: center; 
+  margin-bottom: 0;
 }
+
+.grid {
+  margin: 0;
+  display: inline-block;
+}
+
+.grid-list {
+	float: left;
+}
+
+.module {
+	padding: 20px;
+	text-align: center;
+	max-height: 120px;
+	min-width: 120px;
+	border-radius: 2px;
+}
+
+

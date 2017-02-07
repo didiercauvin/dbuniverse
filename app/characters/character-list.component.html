@@ -1,17 +1,19 @@
-<div class="container">
-    <div class='panel-heading'>
-        {{pageTitle}}
+<h3>{{pageTitle}}</h3>
+
+<div class="grid">
+    <div>
+        <a class='btn btn-default' (click)='onNew()'>
+            <i class='glyphicon glyphicon-plus'></i> Ajouter un personnage
+        </a>
+    </div>
+    <div *ngFor="let character of characters" class="grid-list">
+        <div class="module">
+            <a [routerLink]="character.id" routerLinkActive="true"><span class="badge"><h4>{{character.name}}</h4></span></a>
+        </div>
     </div>
     <div>
-        <div>
-            <a class='btn btn-default' (click)='onNew()'>
-                <i class='glyphicon glyphicon-plus'></i> Ajouter un personnage
-            </a>
-        </div>
-        <ul class="characters">
-            <li *ngFor="let character of characters">
-                <a [routerLink]="character.id" routerLinkActive="true"><span class="badge">{{character.name}}</span></a>
-            </li>
-        </ul>
+        <a class='btn btn-default' (click)='onBack()'>
+            <i class='glyphicon glyphicon-chevron-left'></i>Retour
+        </a>
     </div>
 </div>

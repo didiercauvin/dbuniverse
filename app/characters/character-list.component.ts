@@ -52,6 +52,14 @@ export class CharacterListComponent implements OnInit {
     }
 
     public onNew() {
+
         this._router.navigate(['edit'], {relativeTo: this._route});
+        
+    }
+
+    onBack(): void {
+
+        this._router.navigate(['../'], {relativeTo: this._route});
+
     }
 }

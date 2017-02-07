@@ -6,6 +6,7 @@
             <label for="category">Catégorie</label>
             <select class="form-control" id="category" 
                     required
+                    disabled
                     [(ngModel)]="model.category"
                     name="category">
                 <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
@@ -38,6 +39,11 @@
                     name="imageUrl">
         </div>
 
-        <button type="submit" class="btn btn-primary" [disabled]="!bookForm.form.valid">Enregistrer</button>
+        <div>
+            <button type="submit" class="btn btn-primary" [disabled]="!bookForm.form.valid">Enregistrer</button>
+            <a class='btn btn-default' (click)='onBack()'>
+                <i class='glyphicon glyphicon-chevron-left'></i>Retour
+            </a>
+        </div>
     </form>
 </div>
