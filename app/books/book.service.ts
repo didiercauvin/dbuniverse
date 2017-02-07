@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { IBook } from './book';
+import { IBook, IBookInfo } from './book';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
@@ -42,6 +42,21 @@ export class BookService {
         return this._data
                     .map((books: IBook[]) => books.filter((b: IBook) => b.category === category));
         
+    }
+
+    getBook(category: string, id: string): Observable<IBookInfo> {
+        
+        return this.getBooks(category)
+                    .map((books: IBook[]) => {
+                        const b = books.filter((b: IBook) => b.id === id)[0];
+
+                        return {
+                            book: b,
+                            previousId: "-1",
+                            nextId: "-1"
+                        }
+                    });
+
     }
 
     handleError(error: Response) {

@@ -18,6 +18,9 @@ export class CharacterDetailsComponent implements OnInit {
     isFirst: boolean;
     isLast: boolean;
 
+    previousId: string;
+    nextId: string;
+
     constructor(
         private _service: CharacterService,
         private _route: ActivatedRoute,
@@ -30,7 +33,11 @@ export class CharacterDetailsComponent implements OnInit {
             .switchMap((params: Params) => this._service.getCharacter(params['category'], params['id']))
             .subscribe(
                 (info: ICharacterInfo) => {
-                    console.log(info);
+                    
+                    console.info(info);
+
+                    this.previousId = info.previousId;
+                    this.nextId = info.nextId;
                     this.character = info.character,
                     this.isFirst = info.isFirst,
                     this.isLast = info.isLast
@@ -65,6 +72,26 @@ export class CharacterDetailsComponent implements OnInit {
                 (id: string) => this._router.navigate(['../', id], {relativeTo: this._route}),
                 error => console.log(error)
             )
+    }
+
+    goToPreviousId(): Observable<string> {
+
+        let category = this._route.snapshot.params['category'];
+        let id = this._route.snapshot.params['id'];
+        
+        return this._service
+            .getPreviousCharacterId(category, id);
+
+    }
+
+    goToNextId(): Observable<string> {
+
+        let category = this._route.snapshot.params['category'];
+        let id: string = this._route.snapshot.params['id'];
+
+        return this._service
+            .getNextCharacterId(category, id);
+
     }
 
     onEdit(): void {

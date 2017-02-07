@@ -55,10 +55,11 @@ export class CharacterService {
         return this.getCharacters(category)
                    .map(characters => {
                        const c = characters.filter(c => c.id === id)[0];
+                       
                        return {
                            character: c,
-                           isFirst: this.getPreviousId(characters, id) === id,
-                           isLast: this.getNextId(characters, id) === id
+                           previousId: this.getPreviousId(characters, id),
+                           nextId: this.getNextId(characters, id)
                        }
                     });
     }

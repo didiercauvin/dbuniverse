@@ -1,9 +1,16 @@
-<div>
-    <h2>Liste des livres!</h2>
+<div class="container">
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
     <div>
-        <ul>
+        <div>
+            <a class='btn btn-default' (click)='onNew()'>
+                <i class='glyphicon glyphicon-plus'></i> Ajouter un livre
+            </a>
+        </div>
+        <ul class="books">
             <li *ngFor="let book of books">
-                <db-image [model]='book' [imageWidth]='imageWidth' [imageHeight]='imageHeight'></db-image>
+                <a [routerLink]="book.id" routerLinkActive="true"><span class="badge">{{book.title}}</span></a>
             </li>
         </ul>
     </div>

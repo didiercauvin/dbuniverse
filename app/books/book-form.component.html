@@ -1,0 +1,43 @@
+<div class='container'>
+    <h1>Edition d'un livre</h1>
+    {{diagnostic}}
+    <form *ngIf="model" (ngSubmit)="onSubmit()" #bookForm="ngForm" novalidate>
+        <div class="form-group">
+            <label for="category">Catégorie</label>
+            <select class="form-control" id="category" 
+                    required
+                    [(ngModel)]="model.category"
+                    name="category">
+                <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="title">Nom</label>
+            <input  type="text" class="form-control" id="title" 
+                    required
+                    [(ngModel)]="model.title"
+                    name="title"
+                    #name="ngModel">
+            <div [hidden]="title.valid || title.pristine"
+                class="alert alert-danger">
+                Le titre est requis
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" 
+                    required
+                    [(ngModel)]="model.description"
+                    name="description">
+        </div>
+        <div class="form-group">
+            <label for="imageUrl">Url de l'image</label>
+            <input type="text" class="form-control" id="imageUrl" 
+                    required
+                    [(ngModel)]="model.imageUrl"
+                    name="imageUrl">
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!bookForm.form.valid">Enregistrer</button>
+    </form>
+</div>

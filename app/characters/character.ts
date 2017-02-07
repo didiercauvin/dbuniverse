@@ -10,4 +10,6 @@ export interface ICharacterInfo {
     character: ICharacter;
     isFirst: boolean;
     isLast: boolean;
+    previousId: string;
+    nextId: string;
 }

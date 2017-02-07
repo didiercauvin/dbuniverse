@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookService } from './book.service';
 import { IBook } from './book';
 
@@ -10,13 +10,15 @@ import { IBook } from './book';
 })
 export class BookListComponent implements OnInit {
 
+    public pageTitle: string = "Liste des livres";
     public books: IBook[];
     public imageWidth: number = 160;
     public imageHeight: number = 250;
 
     constructor(
         private _bookService: BookService, 
-        private _route: ActivatedRoute
+        private _route: ActivatedRoute,
+        private _router: Router
     ){}
 
     ngOnInit(): void {
@@ -28,5 +30,9 @@ export class BookListComponent implements OnInit {
                     (books: IBook[]) => this.books = books,
                     error => console.log(error)
                 );
+    }
+
+    onNew() {
+        this._router.navigate(['edit'], {relativeTo: this._route});
     }
 }

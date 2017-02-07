@@ -1,6 +1,5 @@
 import { NgModule, APP_INITIALIZER }      from '@angular/core';
 import { HttpModule }    from '@angular/http';
-import { BrowserModule } from '@angular/platform-browser';
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
 import { AppComponent }  from './app.component';
 import { WelcomeModule } from './welcome/welcome.module';
@@ -17,7 +16,6 @@ function loadData(service: CoreService) {
 
 @NgModule({
   imports:      [ 
-                  BrowserModule, 
                   HttpModule,
                   WelcomeModule,
                   CategoryModule,

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICharacter, ICharacterInfo } from './character';
 import { CharacterService } from './character.service';
@@ -12,22 +11,14 @@ import { CharacterService } from './character.service';
 export class CharacterFormComponent implements OnInit {
     categories: string[];
     model: ICharacter;
-    complexForm: FormGroup;
     category: string;
 
     constructor(
         private _service: CharacterService,
         private _route: ActivatedRoute,
-        private _router: Router,
-        private fb: FormBuilder
+        private _router: Router
     ) {
         this.category = this._route.snapshot.params['category'];
-        this.complexForm = fb.group({
-            'name': '',
-            'description': '',
-            'category': this.category,
-            'imageUrl': ''
-        });
     }
 
     ngOnInit(): void {
