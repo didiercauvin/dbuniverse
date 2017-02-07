@@ -1,6 +1,6 @@
 <div class='container'>
     <h1>Edition d'un livre</h1>
-    {{diagnostic}}
+
     <form *ngIf="model" (ngSubmit)="onSubmit()" #bookForm="ngForm" novalidate>
         <div class="form-group">
             <label for="category">Catégorie</label>
@@ -12,12 +12,12 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="title">Nom</label>
+            <label for="title">Titre</label>
             <input  type="text" class="form-control" id="title" 
                     required
                     [(ngModel)]="model.title"
                     name="title"
-                    #name="ngModel">
+                    #title="ngModel">
             <div [hidden]="title.valid || title.pristine"
                 class="alert alert-danger">
                 Le titre est requis

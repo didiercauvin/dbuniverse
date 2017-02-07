@@ -1,0 +1,15 @@
+<div *ngIf="book">
+    <div>Fiche détaillée de {{book.title}}</div>
+    <div>
+        <a class='btn btn-default' (click)='onBack()'>
+            <i class='glyphicon glyphicon-chevron-left'></i>Retour à la liste
+        </a>
+        <a class='btn btn-default' (click)='onEdit()'>
+            <i class='glyphicon glyphicon-pencil'></i>Modifier
+        </a>
+    </div>
+    <div>
+         <db-image [model]='book' [imageWidth]="imageWidth" [imageHeight]="imageHeight"></db-image>
+    </div>
+    <db-pager [currentId]="book.id" [previousId]="previousId" [nextId]="nextId"></db-pager>
+</div>
