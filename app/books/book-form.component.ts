@@ -39,7 +39,7 @@ export class BookFormComponent implements OnInit {
             this._bookService
                 .getBook(this.category, id)
                 .subscribe(
-                    (info: IBookInfo) => this.model = info.book,
+                    (info: IBookInfo) => this.model = Object.assign({}, info.book),
                     error => console.log(error)
                 );
         }

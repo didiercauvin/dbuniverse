@@ -33,7 +33,9 @@ export class CharacterFormComponent implements OnInit {
             this._service
                 .getCharacter(this.category, id)
                 .subscribe(
-                    (info: ICharacterInfo) => this.model = info.character,
+                    (info: ICharacterInfo) => { 
+                        this.model = Object.assign({}, info.character);
+                    },
                     error => console.log(error)
                 )
         }

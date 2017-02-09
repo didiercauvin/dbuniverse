@@ -52,6 +52,7 @@ export class CharacterService {
     }
 
     public getCharacter(category: string, id: string): Observable<ICharacterInfo> {
+
         return this.getCharacters(category)
                    .map(characters => {
                        const c = characters.filter(c => c.id === id)[0];
@@ -62,6 +63,7 @@ export class CharacterService {
                            nextId: this.getNextId(characters, id)
                        }
                     });
+
     }
 
     public save(category: string, character: ICharacter): Observable<ICharacter> {
@@ -81,11 +83,22 @@ export class CharacterService {
         });
 
         let url = `${this.getUrl(category)}/${character.id}`;
-        console.log('character', character);
-        console.log('url', url);
+
         return this._http
                     .put(url, JSON.stringify(character), {headers: headers})
-                    .map(() => character)
+                    .map(() => {
+                        let c = this._values.filter((char: ICharacter) => {
+                            return char.id === character.id; 
+                        })[0];
+                        
+                        c.name = character.name;
+                        c.description = character.description;
+                        c.imageUrl = character.imageUrl;
+
+                        this._data.next(this._values);
+
+                        return character;
+                    })
                     .catch(this.handleError);
 
     }

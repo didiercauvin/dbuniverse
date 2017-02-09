@@ -81,7 +81,19 @@ export class BookService {
 
         return this._http
                     .put(url, JSON.stringify(book), {headers: headers})
-                    .map(() => book)
+                    .map(() => {
+                        let b = this._values.filter((tBook: IBook) => {
+                            return tBook.id === book.id; 
+                        })[0];
+                        
+                        b.title = book.title;
+                        b.description = book.description;
+                        b.imageUrl = book.imageUrl;
+
+                        this._data.next(this._values);
+
+                        return book;
+                    })
                     .catch(this.handleError);
     }
 
