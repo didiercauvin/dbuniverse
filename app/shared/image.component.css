@@ -1,0 +1,17 @@
+
+.row {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+img {
+    float: left;
+}
+
+#desc {
+    display: table-cell;
+    height: 300px;
+    margin-top: 10px;
+    vertical-align: middle;
+    padding-left: 15px;
+}

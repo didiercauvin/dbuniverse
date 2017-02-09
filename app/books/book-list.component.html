@@ -1,22 +1,19 @@
-<div class="container">
-    <div class='panel-heading'>
-        {{pageTitle}}
-    </div>
+<h3>{{pageTitle}}</h3>
+
+<div class="grid">
     <div>
-        <div>
-            <a class='btn btn-default' (click)='onNew()'>
-                <i class='glyphicon glyphicon-plus'></i> Ajouter un livre
-            </a>
+        <a class='btn btn-info' (click)='onNew()'>
+            <i class='glyphicon glyphicon-plus'></i> Ajouter un livre
+        </a>
+    </div>
+    <div *ngFor="let book of books" class="grid-list">
+        <div class="module">
+            <a [routerLink]="book.id" routerLinkActive="true"><span class="badge"><h4>{{book.title}}</h4></span></a>
         </div>
-        <ul class="books">
-            <li *ngFor="let book of books">
-                <a [routerLink]="book.id" routerLinkActive="true"><span class="badge">{{book.title}}</span></a>
-            </li>
-        </ul>
     </div>
     <div>
-        <a class='btn btn-default' (click)='onBack()'>
-            <i class='glyphicon glyphicon-chevron-left'></i>Retour à la liste
+        <a class='btn btn-info' (click)='onBack()'>
+            <i class='glyphicon glyphicon-chevron-left'></i>Retour
         </a>
     </div>
 </div>

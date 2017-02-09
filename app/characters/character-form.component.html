@@ -2,48 +2,53 @@
     <h1>Edition d'un personnage</h1>
 
     <form *ngIf="model" (ngSubmit)="onSubmit()" #characterForm="ngForm" novalidate>
-        <div class="form-group">
-            <label for="category">Catégorie</label>
-            <select class="form-control" id="category" 
-                    required
-                    disabled
-                    [(ngModel)]="model.category"
-                    name="category">
-                <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="name">Nom</label>
-            <input  type="text" class="form-control" id="name" 
-                    required
-                    [(ngModel)]="model.name"
-                    name="name"
-                    #name="ngModel">
-            <div [hidden]="name.valid || name.pristine"
-                class="alert alert-danger">
-                Le nom est requis
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="category">Catégorie</label>
+                <select class="form-control" id="category" 
+                        required
+                        disabled
+                        [(ngModel)]="model.category"
+                        name="category">
+                    <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+                </select>
             </div>
         </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <input type="text" class="form-control" id="description" 
-                    required
-                    [(ngModel)]="model.description"
-                    name="description">
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="name">Nom</label>
+                <input  type="text" class="form-control" id="name" 
+                        required
+                        [(ngModel)]="model.name"
+                        name="name"
+                        #name="ngModel">
+                <div [hidden]="name.valid || name.pristine"
+                    class="alert alert-danger">
+                    Le nom est requis
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="imageUrl">Url de l'image</label>
-            <input type="text" class="form-control" id="imageUrl" 
-                    required
-                    [(ngModel)]="model.imageUrl"
-                    name="imageUrl">
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description"
+                        required
+                        [(ngModel)]="model.description"
+                        name="description"></textarea>
+            </div>
         </div>
-
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="imageUrl">Url de l'image</label>
+                <input type="text" class="form-control" id="imageUrl" 
+                        required
+                        [(ngModel)]="model.imageUrl"
+                        name="imageUrl">
+            </div>
+        </div>
         <div>
             <button type="submit" class="btn btn-primary" [disabled]="!characterForm.form.valid">Enregistrer</button>
-            <a class='btn btn-default' (click)='onBack()'>
-                <i class='glyphicon glyphicon-chevron-left'></i>Retour
-            </a>
+            <a class='btn btn-success' (click)='onBack()'>Retour</a>
         </div>
     </form>
 </div>

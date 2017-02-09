@@ -1,8 +1,8 @@
 <div>
-    <a *ngIf="!isFirst()" class='btn btn-default' (click)='goTo(previousId)'>
+    <a *ngIf="!isFirst()" class='btn btn-info' (click)='goTo(previousId)'>
         <i class='glyphicon glyphicon-chevron-left'></i>Précédent
     </a>
-    <a *ngIf="!isLast()" class='btn btn-default' (click)='goTo(nextId)'>
+    <a *ngIf="!isLast()" class='btn btn-info' (click)='goTo(nextId)'>
         Suivant<i class='glyphicon glyphicon-chevron-right'></i>
     </a>
 </div>
